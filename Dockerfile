@@ -15,7 +15,7 @@ COPY ./ /home/CyanoPipeline/
 
 # Creating user
 RUN adduser --disabled-password --gecos '' qtuser
-RUN chown -R qtuser: /home/qtuser && chown -R qtuser: /home/CyanoPipeline
+RUN chown -R qtuser: /home/qtuser
 USER qtuser
 
 # Anaconda installing
@@ -31,15 +31,15 @@ RUN conda update conda
 RUN conda update --all
 
 # Setting conda environments
-COPY ./conda_envs/* /home/CyanoPipeline/conda_envs/
-RUN conda env create -f /home/CyanoPipeline/conda_envs/cutadapt_env.yml
-RUN conda env create -f /home/CyanoPipeline/conda_envs/fastqc_env.yml
-RUN conda env create -f /home/CyanoPipeline/conda_envs/kraken2_env.yml
-RUN conda env create -f /home/CyanoPipeline/conda_envs/maxbin2_env.yml
-RUN conda env create -f /home/CyanoPipeline/conda_envs/quast_env.yml
-RUN conda env create -f /home/CyanoPipeline/conda_envs/spades_env.yml
-RUN conda env create -f /home/CyanoPipeline/conda_envs/base_env.yml
-RUN rm -r /home/CyanoPipeline/conda_envs/
+COPY ./conda_envs/* /home/qtuser/conda_envs/
+RUN conda env create -f /home/qtuser/conda_envs/cutadapt_env.yml
+RUN conda env create -f /home/qtuser/conda_envs/fastqc_env.yml
+RUN conda env create -f /home/qtuser/conda_envs/kraken2_env.yml
+RUN conda env create -f /home/qtuser/conda_envs/maxbin2_env.yml
+RUN conda env create -f /home/qtuser/conda_envs/quast_env.yml
+RUN conda env create -f /home/qtuser/conda_envs/spades_env.yml
+RUN conda env create -f /home/qtuser/conda_envs/base_env.yml
+RUN rm -r /home/qtuser/conda_envs/
 
 #Install bbmap
 RUN cd /home/qtuser/ && \
